@@ -215,3 +215,84 @@ Tea quantity: 55
 Bread quantity: 76
 Total amount to pay: Rp 1732000
 
+2.3.3 Questions
+
+1. If the first customer name entered is cancel, how many times is the loop executed?
+
+Answer: The loop body is executed once. A do-while loop runs its body first and checks the condition afterwards,
+so the customer name is always requested at least one time. Because the name is cancel, the program prints 
+"Transaction canceled." and break exits the loop immediately.
+
+2. State the stopping condition used in this DO-WHILE loop.
+Answer: The loop stops when the cashier enters cancel as the customer name.
+The comparison uses equalsIgnoreCase, so cancel, Cancel, and CANCEL all work.
+The break statement then exits the loop.
+
+3. What is the function of using the value true in the DO-WHILE condition?
+Answer: while (true) makes the loop condition always true,
+so the loop repeats indefinitely. It lets the cashier serve any number of customers, 
+and the only way out is the break statement that runs when cancel is entered.
+
+4. Why does this DO-WHILE loop still run even though it has no initialization and update components?
+Answer: Unlike a for loop, a do-while loop does not need a counter. It only needs a condition. 
+Here, the condition is the constant true, and the exit is controlled by the user's input through break.
+The body supplies the data itself (the customer name is read inside the loop), so no separate initialization or update is required.
+
+3. ASSIGNMENTS
+3.1 Assignment 1: Cinema Ticket Sales
+Tickets cost Rp50,000 each. A customer receives a 10% discount when buying more than 4 tickets and a 15% discount 
+when buying more than 10 tickets. Negative quantities are invalid and must be entered again. The program calculates 
+the total number of tickets sold and the total revenue for the day.
+
+3.1.1 Java Program Code
+import java.util.Scanner;
+
+public class CinemaSales05 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        final int ticketPrice = 50000;
+        int totalTickets = 0;
+        double totalRevenue = 0;
+        String again;
+
+        do {
+            int quantity;
+            do {
+                System.out.print("Enter ticket quantity (0 to finish this sales session): ");
+                quantity = sc.nextInt();
+                if (quantity < 0) {
+                    System.out.println("Invalid quantity. Please enter a non-negative number.");
+                }
+            } while (quantity < 0);
+
+            if (quantity == 0) {
+                break;
+            }
+
+            double discountRate = 0;
+            if (quantity > 10) {
+                discountRate = 0.15;
+            } else if (quantity > 4) {
+                discountRate = 0.10;
+            }
+
+            double subtotal = (double) quantity * ticketPrice;
+            double payment = subtotal * (1 - discountRate);
+            totalTickets += quantity;
+            totalRevenue += payment;
+
+            System.out.printf("Discount: %.0f%%%n", discountRate * 100);
+            System.out.printf("Amount to pay: Rp %.0f%n", payment);
+            System.out.print("Process another customer? (yes/no): ");
+            again = sc.next();
+        } while (again.equalsIgnoreCase("yes"));
+
+        System.out.println("Total tickets sold: " + totalTickets);
+        System.out.printf("Total ticket sales revenue: Rp %.0f%n", totalRevenue);
+        sc.close();
+    }
+}
+2.1.2 Running Results / Screenshot Output
+Enter ticket quantity (0 to finish this sales session): 8
+Discount: 10%
+Amount to pay: Rp 360000
