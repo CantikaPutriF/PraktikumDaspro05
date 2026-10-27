@@ -78,4 +78,140 @@ The second if compares the current score with lowest. If the current score is sm
 Both checks are executed on every iteration, so after the 10th student highest and lowest hold the maximum and minimum of all scores entered.
 
 4. Modify the program to count how many students pass and fail, based on the passing threshold (minimum score of 60).
+Answer: Two counters, passCount and failCount, are declared and set to 0 before the loop. 
+Inside the loop, if (score >= 60) increases passCount; otherwise failCount is increased. After the loop, both totals are displayed. 
+With the test data above, 9 students pass and 1 student fails.
+
+2.2 Experiment 2: Student Grades Case Study in SIAKAD — WHILE Loop
+
+The program asks how many students' scores will be entered. It validates each score. Scores below 0 or above 100 are rejected and must be entered again.
+Valid scores are converted to letter grades according to the following ranges: 
+A (>80-100), B+ (>73-80), B (>65-73), C+ (>60-65), C (>50-60), D (>39-50), and E (0-39).
+
+import java.util.Scanner;
+public class SiakadWhile264107020237 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int studentCount;
+        int i = 0;
+        int score;
+
+        System.out.print("Enter the number of students:");
+        studentCount = sc.nextInt();
+
+        while (i < studentCount) {
+            System.out.print("Enter score for student " +(i + 1) +  ": ");
+            score = sc.nextInt();
+
+            if (score < 0 || score > 100) {
+                System.out.println("Invalid score, Please enter a valid score! ");
+                continue;
+            }
+
+            if (score > 80 && score <= 100) {
+                System.out.println("The grade of student " + (i + 1) + " is A");
+            } else if (score > 73 && score <= 80) {
+                System.out.println("The grade of student " + (i + 1) + " is B+");
+            } else if (score > 65 && score <= 73) {
+                System.out.println("The grade of student " + (i + 1) + " is B");
+            } else if (score > 60 && score <= 65) {
+                System.out.println("The grade of student " + (i + 1) + " is C+");
+            }  else if (score > 50 && score <= 60) {
+                System.out.println("The grade of student " + (i + 1) + " is C");
+            } else if (score > 39 && score <= 50) {
+               System.out.println("The grade of student " + (i + 1) + " is D");
+            }  else {
+                System.out.println("The grade of student " + (i + 1) + " is E");
+                }
+                i++;
+            }
+        }   
+    }
+
+        
+2.1.2 Running Results / Screenshot Output
+
+Enter the number of students:90
+Enter score for student 1: 99
+The grade of student 1 is A
+Enter score for student 2: 67
+The grade of student 2 is B
+Enter score for student 3: 56
+The grade of student 3 is C
+Enter score for student 4: 45
+The grade of student 4 is D
+Enter score for student 5: 65
+The grade of student 5 is C+
+
+2.2.3 Questions
+
+1.Explain the code score < 0 || score > 100 and the continue statement.
+
+Answer: score < 0 || score > 100 uses the logical OR operator. It is true when the score is below 0 or above 100, which means the score is outside the valid range.
+The continue statement skips the rest of the current iteration and jumps back to the loop condition. 
+In this program, an invalid score is not graded, and because i++ is skipped, the same student is asked to enter a score again.
+
+2. Why is i++ written at the end of the WHILE loop? What happens if it is written at the beginning?
+
+Answer: i++ is written at the end so that the counter increases only after a valid score has been graded. When an invalid score is entered, 
+continue skips i++, so the program asks for the same student again. If i++ were written at the beginning of the loop, 
+the counter would increase even for invalid scores. The invalid entry would then use up one student's slot, 
+the student numbers shown in the messages would be wrong, and fewer than the requested number of students would be graded.
+3. If the number of students entered is 19, how many times will the WHILE loop run?
+Answer: The loop produces exactly 19 valid grades. If every score entered is valid, the loop runs exactly 19 times. 
+If some scores are invalid, each invalid entry causes one extra iteration, so the loop runs 19 + (number of invalid entries) times.
+
+4. Modify the program so that, if a student receives grade A, it displays "Well done, keep up the good work!"
+The grade of student 3 is A
+Enter score for student 4: 76
+The grade of student 4 is B+
+Enter score for student 5: 66
+The grade of student 5 is B
+
+2.3 Experiment 3: Café Transaction Case Study — DO-WHILE Loop
+The cashier enters a customer's name and the quantities of coffee, tea, and bread. Coffee costs Rp12,000,
+tea costs Rp7,000, and bread costs Rp20,000. The program calculates the total transaction. Entering cancel ends the program.
+
+2.3.1 Java Program Code
+import java.util.Scanner;
+
+public class CafeDoWhile264107020237 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        final int coffeePrice = 12000;
+        final int teaPrice = 8000;
+        final int breadPrice = 5000;
+        String customerName;
+
+        do {
+            System.out.print("Enter customer name (type 'cancel' to exit): ");
+            customerName = sc.nextLine();
+            if (customerName.equalsIgnoreCase("cancel")) {
+                System.out.println("Transaction canceled.");
+                break;
+            }
+
+            System.out.print("Coffee quantity: ");
+            int coffee = sc.nextInt();
+            System.out.print("Tea quantity: ");
+            int tea = sc.nextInt();
+            System.out.print("Bread quantity: ");
+            int bread = sc.nextInt();
+
+            int totalPrice = (coffee * coffeePrice) + (tea * teaPrice) + (bread * breadPrice);
+            System.out.println("Total amount to pay: Rp " + totalPrice);
+            sc.nextLine();
+        } while (true);
+
+        System.out.println("All transactions completed.");
+        sc.close();
+    }
+}
+        
+2.1.2 Running Results / Screenshot Output
+Enter customer name (type 'cancel' to exit): tika
+Coffee quantity: 76
+Tea quantity: 55
+Bread quantity: 76
+Total amount to pay: Rp 1732000
 
